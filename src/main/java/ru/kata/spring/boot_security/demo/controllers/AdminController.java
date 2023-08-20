@@ -1,14 +1,13 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,27 +24,22 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String getUserList(Model model) {
+    public String getUserList(Model model, Principal principal) {
         model.addAttribute("users", userService.findAllUsers());
-        return "index";
-    }
-
-    @GetMapping("/admin/new")
-    public ModelAndView newUser() {
-        User user = new User();
-        ModelAndView mav = new ModelAndView("new");
-        mav.addObject("newuser", user);
+        User user = (User) userService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("newuser", new User());
         List<Role> roles = (List<Role>) roleService.findAllRoles();
-        mav.addObject("roleList", roles);
-        return mav;
+        model.addAttribute("roleList", roles);
+        return "index";
     }
 
     @PostMapping("/admin")
     public String saveNewUser(@ModelAttribute("newuser") User user) {
         Set<Role> roles = new HashSet<>();
-        var roleSet = Set.copyOf(user.getRoles());
-        for (Role role : roleSet) {
-            Role role1 = roleService.findRoleById(Integer.parseInt(role.getName()));
+        var roleSet = user.getRolesIds();
+        for (Integer roleId : roleSet) {
+            Role role1 = roleService.findRoleById(roleId);
             roles.add(role1);
         }
         user.setRoles(roles);
@@ -53,24 +47,15 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") Integer id) {
-        User user = userService.findUserById(id);
-        model.addAttribute("updateduser", user);
-        model.addAttribute("roleList", roleService.findAllRoles());
-        return "edit";
-    }
-
-    @PatchMapping("/admin/{id}")
-    public String updateUser(@ModelAttribute("updateduser") User user, @PathVariable("id") int id) {
+    @PatchMapping("/admin/edit")
+    public String updateUser(@ModelAttribute("updateduser") User user) {
         Set<Role> roles = new HashSet<>();
-        var roleSet = Set.copyOf(user.getRoles());
-        for (Role role : roleSet) {
-            Role role1 = roleService.findRoleById(Integer.parseInt(role.getName()));
+        var roleSet = user.getRolesIds();
+        for (Integer roleId : roleSet) {
+            Role role1 = roleService.findRoleById(roleId);
             roles.add(role1);
         }
         user.setRoles(roles);
-        user.setId(id);
         userService.updateUser(user);
         return "redirect:/admin";
     }
@@ -81,4 +66,3 @@ public class AdminController {
         return "redirect:/admin";
     }
 }
-

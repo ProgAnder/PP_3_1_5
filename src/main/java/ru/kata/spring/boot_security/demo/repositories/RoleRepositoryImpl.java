@@ -34,7 +34,6 @@ public class RoleRepositoryImpl implements RoleRepository {
         return query.setParameter("p", id).getSingleResult();
     }
 
-
     @Override
     public Role findRoleByName(String name) {
         TypedQuery<Role> query = em.createQuery("select r from Role r where r.name = :p", Role.class);
