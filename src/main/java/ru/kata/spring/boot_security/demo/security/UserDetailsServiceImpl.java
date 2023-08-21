@@ -8,8 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entities.Role;
-import ru.kata.spring.boot_security.demo.repositories.UserRepositoryImpl;
-
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -17,9 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    public final UserRepositoryImpl userRepository;
+    public final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepositoryImpl userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,9 +1,8 @@
 package ru.kata.spring.boot_security.demo.entities;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,8 +33,7 @@ public class User implements UserDetails {
     @Column(name = "age")
     private Byte age;
 
-
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

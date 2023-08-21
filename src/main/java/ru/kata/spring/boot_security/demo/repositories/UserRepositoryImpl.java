@@ -17,6 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         TypedQuery<User> query = em.createQuery("select u from User u left join fetch u.roles where u.username=:username", User.class);
         User user = query.setParameter("username", username).getSingleResult();

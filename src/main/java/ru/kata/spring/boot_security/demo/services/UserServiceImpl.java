@@ -6,17 +6,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.repositories.UserRepositoryImpl;
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    private final UserRepositoryImpl repository;
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepositoryImpl repository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -55,10 +56,6 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) {
         return repository.loadUserByUsername(username);
     }
-
-
-
-
 
 
 }

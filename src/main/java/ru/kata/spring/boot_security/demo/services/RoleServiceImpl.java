@@ -2,7 +2,7 @@ package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.entities.Role;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepositoryImpl;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleRepositoryImpl repository;
+    private final RoleRepository repository;
 
-    public RoleServiceImpl(RoleRepositoryImpl repository) {
+    public RoleServiceImpl(RoleRepository repository) {
         this.repository = repository;
     }
 
