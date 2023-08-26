@@ -1,25 +1,35 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.dto.UserDTO;
+import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository repository, RoleService roleService, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.repository = repository;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -35,6 +45,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
+        Set<Role> roles = new HashSet<>();
+
+//        for (Role role : userDTO.getRoles()) {
+//            roles.add(roleService.findRoleById(role.getId()));
+//        }
+//
+//        user.setRoles(roles);
+
+/*        user.setRoles(userDTO.getRoles().stream()
+                .map(Role::getId)
+                .map(roleService::findRoleById)
+                .collect(Collectors.toSet()));*/
+
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.addUser(user);
     }

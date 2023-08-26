@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
@@ -24,16 +25,14 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String getUserList(Model model, Principal principal) {
-        model.addAttribute("users", userService.findAllUsers());
-        User user = (User) userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("newuser", new User());
-        List<Role> roles = (List<Role>) roleService.findAllRoles();
-        model.addAttribute("roleList", roles);
-        return "index";
+    public String getUserList() {
+        return "admin";
     }
 
+
+
+
+/*
     @PostMapping("/admin")
     public String saveNewUser(@ModelAttribute("newuser") User user) {
         Set<Role> roles = new HashSet<>();
@@ -64,5 +63,5 @@ public class AdminController {
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
-    }
+    }*/
 }
