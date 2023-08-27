@@ -29,15 +29,6 @@ public class Init implements ApplicationRunner {
             Role admin = new Role("ROLE_ADMIN");
             Role user = new Role("ROLE_USER");
 
-
-//            User.builder().id(null).username("admin@mail.ru").password("100").
-//                    firstName("Иванов").lastName("Петр").age((byte)25).roles(new HashSet<>(Set.of(admin))).build();
-//
-//            User.builder().id(null).username("user@mail.ru").password("100").
-//                    firstName("Петров").lastName("Иван").age((byte)50).roles(new HashSet<>(Set.of(user))).build();
-
-
-
             User newAdmin = new User("admin@mail.ru", "100",
                     "Иванов", "Петр", (byte) 50, new HashSet<>(Set.of(admin)));
 

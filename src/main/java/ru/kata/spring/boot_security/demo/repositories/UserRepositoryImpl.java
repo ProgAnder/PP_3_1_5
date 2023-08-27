@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.repositories;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entities.User;
 
 import javax.persistence.EntityManager;
@@ -51,4 +50,5 @@ public class UserRepositoryImpl implements UserRepository {
     public void updateUser(User user) {
         em.merge(user);
     }
+
 }
