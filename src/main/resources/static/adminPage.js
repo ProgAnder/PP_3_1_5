@@ -1,9 +1,8 @@
 const navbarAdmin = document.getElementById('navbarAdmin')
 const tbodyAdmin = document.getElementById('tbodyAdmin')
 
-let urlCurrentUser = '/api/user'
 
-fetch(urlCurrentUser).then(response => response.json())
+fetch('/api/user').then(response => response.json())
     .then(user => {
         navbarAdmin.innerHTML = `
         <strong><span className="bold">${user.username}</span></strong>
@@ -12,14 +11,10 @@ fetch(urlCurrentUser).then(response => response.json())
     })
 
 function adminPage() {
-    let urlUsersList = '/api/admin'
-    fetch(urlUsersList).then(response => response.json())
+    fetch('/api/admin').then(response => response.json())
         .then(usersList => {
                 let tr = ''
                 for (let user of usersList) {
-
-                    console.log(user)
-
                     tr += `<tr>
                   <td>${user.id}</td>
                   <td>${user.firstName}</td>

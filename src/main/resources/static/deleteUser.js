@@ -1,11 +1,9 @@
-const deleteUserForm = document.getElementById("deleteUserForm")
-
-let deleteRoleHtml = document.getElementById("deleteUserRoleBlock")
-
-let deleteModalClose = document.getElementById("deleteModalClose")
+const deleteUserForm = document.getElementById('deleteUserForm')
+let deleteRoleHtml = document.getElementById('deleteUserRoleBlock')
+let deleteModalClose = document.getElementById('deleteModalClose')
 
 
-fetch("/api/role").then(response => response.json()).then(rolelist => {
+fetch('/api/role').then(response => response.json()).then(rolelist => {
         let html = ''
         for (let role of rolelist) {
             html = `
@@ -24,7 +22,7 @@ function myDelete(id) {
 
     let userr = ''
 
-    fetch("api/admin/" + id).then(response => response.json()).then(user => {
+    fetch('api/admin/' + id).then(response => response.json()).then(user => {
             deleteUserForm.id_delete.value = user.id
             deleteUserForm.firstname_delete.value = user.firstName
             deleteUserForm.lastname_delete.value = user.lastName
@@ -35,43 +33,20 @@ function myDelete(id) {
     )
 }
 
-let deletedUserRole = document.querySelector('#deleteUserRoleBlock').selectedOptions
-
-deleteUserForm.addEventListener("submit", deletedUser => {
+deleteUserForm.addEventListener('submit', deletedUser => {
     deletedUser.preventDefault()
-    let rolesz = []
-    for (let i = 0; i < deletedUserRole.length; i++) {
-        rolesz.push({
-            id: deletedUserRole[i].value
-        })
-    }
-
 
     method = {
         method: 'DELETE',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            // id: deleteUserForm.id_delete.value,
-            // firstName: deleteUserForm.firstname_delete.value,
-            // lastName: deleteUserForm.lastname_delete.value,
-            // age: deleteUserForm.age_delete.value,
-            // username: deleteUserForm.email_delete.value,
-            //
-            // roles: rolesz
-        })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({})
 
     }
 
-
-    fetch("http://localhost:8080/api/admin/" + idForSubmit, method).then(() => {
+    fetch('/api/admin/' + idForSubmit, method).then(() => {
         deleteUserForm.reset()
         deleteModalClose.click()
         adminPage()
-        console.log(method)
     })
 
-
-
 })
-
-

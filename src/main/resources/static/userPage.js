@@ -1,15 +1,11 @@
 const table = document.getElementById('tbody')
 const navbarUser = document.getElementById('navbarUser')
 
-let url = '/api/user'
-
-fetch(url)
+fetch('/api/user')
     .then((response) => {
         return response.json();
     })
     .then((user) => {
-        for (role of user.roles) {
-        }
         table.innerHTML = `<tr>
                   <td>${user.id}</td>
                   <td>${user.firstName}</td>
@@ -24,7 +20,6 @@ fetch(url)
 
 
         let roless = user.roles.map(role => role.name.replace('ROLE_', ''))
-        console.log(roless)
 
         if (roless.indexOf('ADMIN') === -1) {
             document.getElementById('adminMenu').style.display = 'none'
