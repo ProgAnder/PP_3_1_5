@@ -12,8 +12,4 @@ public class SpringBootSecurityDemoApplication {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 	}
 
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
 }

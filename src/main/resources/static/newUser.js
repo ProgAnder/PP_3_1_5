@@ -29,9 +29,6 @@ let method = ''
 newUserForm.addEventListener('submit', newUser => {
     newUser.preventDefault()
     let roles = []
-
-
-
     for (let i = 0; i < newUserRole.length; i++) {
         roles.push({
             id: newUserRole[i].value
@@ -56,9 +53,9 @@ newUserForm.addEventListener('submit', newUser => {
     console.log(newUserRole)
 
     fetch("http://localhost:8080/api/admin",method).then(() => {
-        newUserForm.reset();
-//        adminPage();
-        tableAdmin.click();
+        newUserForm.reset()
+        adminPage()
+        tableAdmin.click()
     })
 
 
@@ -70,35 +67,3 @@ console.log(newUserRole)
 
 
 
-//
-//
-//
-//
-//
-// for (let i = 0; i < rolesFromForm.length; i++) {
-//     roles.push({id: rolesFromForm[i].value})
-// }
-//
-//
-// let method = {
-//     method: 'POST',
-//     headers: {"Content-Type": "application/json"},
-//     body: JSON.stringify({
-//         id: null,
-//         firstName: userBlock.firstnameNewUser.value,
-//         lastName: userBlock.lastnameNewUser.value,
-//         age: userBlock.ageNewUser.value,
-//         username: userBlock.usernameNewUser.value,
-//         password: userBlock.passwordNewUser.value,
-//         roles: roles
-//     })
-// }
-//
-// console.log(method)
-//
-//
-// fetch("/api/admin", method).then(() => {
-//     userBlock.reset();
-//     // adminPage();
-//     // tableAdmin.click();
-// })

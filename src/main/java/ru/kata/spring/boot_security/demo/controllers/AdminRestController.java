@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.dto.UserDTO;
 import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
@@ -26,13 +25,8 @@ public class AdminRestController {
     }
 
     @GetMapping("/admin")
-    public List<UserDTO> getUserList(ModelMapper modelMapper) {
-        List<User> users = userService.findAllUsers();
-        List<UserDTO> userDTOS = new ArrayList<>();
-        for (User user : users) {
-            userDTOS.add(modelMapper.map(user, UserDTO.class));
-        }
-        return userDTOS;
+    public List<User> getUserList() {
+        return userService.findAllUsers();
     }
 
 
@@ -44,10 +38,9 @@ public class AdminRestController {
 
     @PostMapping("/admin")
     @Transactional
-    public String saveNewUser(@RequestBody UserDTO userDTO, ModelMapper modelMapper) {
-        User user = modelMapper.map(userDTO, User.class);
-        Set<Role> roles = new HashSet<>();
-        user.setRoles(userDTO.getRoles().stream()
+    public String saveNewUser(@RequestBody User user) {
+              Set<Role> roles = new HashSet<>();
+        user.setRoles(user.getRoles().stream()
                 .map(Role::getId)
                 .map(roleService::findRoleById)
                 .collect(Collectors.toSet()));
@@ -56,8 +49,29 @@ public class AdminRestController {
     }
 
 
-//    @PatchMapping("/admin/edit")
-//    public String updateUser(@ModelAttribute("updateduser") User user) {
+    @GetMapping("/admin/{id}")
+    public User getUserById(@PathVariable Integer id) {
+
+        System.out.println("123456+++++++++++++++++++++++++++++++++++++++++++++");
+        return userService.findUserById(id);
+    }
+
+
+
+    @PatchMapping("/admin/edit")
+    public String updateUser(@RequestBody User user) {
+
+        System.out.println(user);
+
+
+        Set<Role> roles = new HashSet<>();
+        user.setRoles(user.getRoles().stream()
+                .map(Role::getId)
+                .map(roleService::findRoleById)
+                .collect(Collectors.toSet()));
+
+        userService.updateUser(user);
+
 //        Set<Role> roles = new HashSet<>();
 //        var roleSet = user.getRolesIds();
 //        for (Integer roleId : roleSet) {
@@ -66,12 +80,22 @@ public class AdminRestController {
 //        }
 //        user.setRoles(roles);
 //        userService.updateUser(user);
-//        return "redirect:/admin";
-//    }
+        return "redirect:/admin";
+    }
 
-//    @DeleteMapping("/admin/{id}")
-//    public String deleteUser(@PathVariable("id") Integer id) {
-//        userService.deleteUserById(id);
-//        return "redirect:/admin";
-//    }
+
+
+
+
+
+
+    @DeleteMapping("/admin/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUserById(id);
+        return "redirect:/admin";
+    }
+
+
+
+
 }

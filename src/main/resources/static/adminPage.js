@@ -11,26 +11,35 @@ fetch(urlCurrentUser).then(response => response.json())
         <span>${user.roles.map(role => role.name.replace('ROLE_', ''))}</span>`
     })
 
-let urlUsersList = '/api/admin'
+function adminPage() {
+    let urlUsersList = '/api/admin'
+    fetch(urlUsersList).then(response => response.json())
+        .then(usersList => {
+                let tr = ''
+                for (let user of usersList) {
 
-fetch(urlUsersList).then(response => response.json())
-    .then(usersList => {
-            let tr = ''
-            for (let user of usersList) {
+                    console.log(user)
 
-                console.log(user)
-
-                tr += `<tr>
+                    tr += `<tr>
                   <td>${user.id}</td>
                   <td>${user.firstName}</td>
                   <td>${user.lastName}</td>
                   <td>${user.age}</td>
                   <td>${user.username}</td>
                   <td>${user.roles.map(role => role.name.replace('ROLE_', ''))}</td>
-                  <td>Edit</td>
-                  <td>Delete</td>
+                  <td>
+                  <button type="button" class="btn btn-info" data-toggle="modal"
+                  data-target="#myEdit" onclick="myEdit(${user.id})">Edit</button>
+                  </td>
+                  <td>
+                  <button type="button" class="btn btn-danger" data-toggle="modal"
+                  data-target="#myDelete" onclick="myDelete(${user.id})">Delete</button>
+                  </td>
                   </tr>`
+                }
+                tbodyAdmin.innerHTML = tr
             }
-            tbodyAdmin.innerHTML = tr
-        }
-    )
+        )
+}
+
+adminPage()

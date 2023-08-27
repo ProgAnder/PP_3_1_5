@@ -48,7 +48,8 @@
                         <!--Начало самих закладок-->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a id="tableAdmin" class="nav-link active" href="#tab1" data-toggle="tab" aria-expanded="false">Users
+                                <a id="tableAdmin" class="nav-link active" href="#tab1" data-toggle="tab"
+                                   aria-expanded="false">Users
                                     table</a>
                             </li>
                             <li class="nav-item">
@@ -137,16 +138,6 @@
                                                for="newUserRoleBlock">Role</label>
                                         <select multiple class="form-control" size="2" id="newUserRoleBlock">
                                         </select>
-
-
-
-<!--                                        <label class="row font-weight-bold justify-content-center"-->
-<!--                                               for="newUserRole">Role</label>-->
-<!--                                        <select multiple class="form-control" size="2" id="newUserRole">-->
-<!--                                            <option value="1">USER</option>-->
-<!--                                            <option value="2">ADMIN</option>-->
-<!--                                        </select>-->
-
                                     </div>
                                     <br/>
                                     <div class="container text-center col-md-6">
@@ -171,6 +162,189 @@
 </div>
 
 
+<!--Начало модального окна изменения юзера-->
+<div id="myEdit" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="id_edit">ID</label>
+                                <input name="id"
+                                       type="text"
+                                       class="form-control"
+                                       id="id_edit" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="firstname_edit">First
+                                    name</label>
+                                <input name="firstName"
+                                       type="text"
+                                       class="form-control"
+                                       id="firstname_edit"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="lastname_edit">Last name</label>
+                                <input name="lastName"
+                                       type="text"
+                                       class="form-control"
+                                       id="lastname_edit"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="age_edit">Age</label>
+                                <input name="age"
+                                       type="number"
+                                       class="form-control"
+                                       id="age_edit"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="email_edit">Email</label>
+                                <input name="username"
+                                       type="text"
+                                       class="form-control"
+                                       id="email_edit"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="password_edit">Password</label>
+                                <input name="password"
+                                       type="password"
+                                       class="form-control"
+                                       id="password_edit"/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="editedUserRoleBlock">Role</label>
+                                <select multiple class="form-control" size="2" id="editedUserRoleBlock">
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="editModalClose" type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Edit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Конец модального окна изменения юзера-->
+
+
+<!--Начало модального окна удаления юзера-->
+<div id="myDelete" class="modal fade"
+     tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="deleteUserForm">
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="id_delete">ID</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="id_delete"
+                                       readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="firstname_delete">First
+                                    name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="firstname_delete"
+                                       readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="lastname_delete">Last
+                                    name</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="lastname_delete"
+                                       readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="age_delete">Age</label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="age_delete"
+                                       readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="email_delete">Email</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="email_delete" readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="row font-weight-bold justify-content-center"
+                                       for="deleteUserRoleBlock">Role</label>
+                                <select multiple class="form-control" size="2" id="deleteUserRoleBlock">
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="deleteModalClose"  type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Конец модального окна удаления юзера-->
+
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -182,7 +356,8 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/adminPage.js}"></script>
 <script th:src="@{/newUser.js}"></script>
-
+<script th:src="@{/editUser.js}"></script>
+<script th:src="@{/deleteUser.js}"></script>
 
 </body>
 </html>
